@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float BoostSpeed = 10.0f;
     public float Speed = 5.0f;
     public float Jump = 6f;
 
@@ -35,8 +36,11 @@ public class Player : MonoBehaviour
             _body.velocity = _body.velocity.SetY(Jump);
         }
 
+        //Speed (Button A to boost)
+        var speed = (GamePad.ButtonA) ? BoostSpeed : Speed;
+
         //Move
-        _body.MovePosition(_body.position + GamePad.Direction * Speed * Time.fixedDeltaTime);
+        _body.MovePosition(_body.position + GamePad.Direction * speed * Time.fixedDeltaTime);
     }
 
     private void FallCheck()
