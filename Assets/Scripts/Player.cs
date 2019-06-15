@@ -17,6 +17,8 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        FallCheck();
+
         //Look
         if (GamePad.HasDirection) transform.forward = GamePad.Direction;
     }
@@ -25,5 +27,15 @@ public class Player : MonoBehaviour
     {
         //Move
         _body.MovePosition(_body.position + GamePad.Direction * speed * Time.fixedDeltaTime);
+    }
+
+    private void FallCheck()
+    {
+        if (transform.position.y < -10f)
+        {
+            Debug.Log("ahhhhh!");
+            _body.velocity = Vector3.zero;
+            _body.MovePosition(new Vector3(0f, 20f, 0f));
+        }
     }
 }
