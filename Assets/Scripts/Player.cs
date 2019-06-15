@@ -51,6 +51,18 @@ public class Player : MonoBehaviour
 
     private void GroundCheck()
     {
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.6f);
+        //isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.6f);
+
+        //Check Ground
+        RaycastHit hitInfo;
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, out hitInfo, 0.7f);
+        if (isGrounded)
+        {
+            Debug.DrawLine(transform.position, hitInfo.point, Color.red);
+        }
+        else
+        {
+            Debug.DrawLine(transform.position, transform.position.SetY(0), Color.white);
+        }
     }
 }
