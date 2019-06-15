@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float speed = 5.0f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -13,6 +15,6 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        this.transform.position = this.transform.position + GamePad.Direction * Time.deltaTime;
+        this.transform.position = this.transform.position + GamePad.Direction * speed * Time.deltaTime;
     }
 }
