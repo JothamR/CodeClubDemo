@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody _body;
+    public float Speed = 5.0f;
+    public float Jump = 6f;
 
-    public float speed = 5.0f;
+    private Rigidbody _body;
+    private bool isGrounded;
+
 
     // Start is called before the first frame update
     void Start()
@@ -17,16 +20,23 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        FallCheck();
-
         //Look
         if (GamePad.HasDirection) transform.forward = GamePad.Direction;
     }
 
     void FixedUpdate()
     {
+        FallCheck();
+        GroundCheck();
+
+        //Jumping
+        if (GamePad.ButtonB && isGrounded)
+        {
+            _body.velocity = _body.velocity.SetY(Jump);
+        }
+
         //Move
-        _body.MovePosition(_body.position + GamePad.Direction * speed * Time.fixedDeltaTime);
+        _body.MovePosition(_body.position + GamePad.Direction * Speed * Time.fixedDeltaTime);
     }
 
     private void FallCheck()
@@ -37,5 +47,10 @@ public class Player : MonoBehaviour
             _body.velocity = Vector3.zero;
             _body.MovePosition(new Vector3(0f, 20f, 0f));
         }
+    }
+
+    private void GroundCheck()
+    {
+        isGrounded = Physics.Raycast(transform.position, Vector3.down, 0.6f);
     }
 }
